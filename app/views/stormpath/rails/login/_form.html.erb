@@ -1,0 +1,54 @@
+<div class="email-password-area col-xs-12 <%= box_class %>">
+  <div class="header">
+    <% if Stormpath::Rails.config.web.register.enabled %>
+      <span>Log in or <%= link_to "Create Account", new_register_path %></span>
+    <% else %>
+      <span>Log in</span>
+    <% end %>
+  </div>
+
+  <% if flash[:error] %>
+    <div class="alert alert-danger bad-login">
+      <p><%= flash[:error] %></p>
+    </div>
+  <% end %>
+
+  <% if params[:status].present? %>
+    <% case params[:status] %>
+    <% when 'unverified' %>
+      <div class="alert alert-success">
+        <% if Stormpath::Rails.config.web.verify_email.enabled %>
+          <p>
+            Your account verification email has been sent! Before you can log into your account, you need to activate your account by clicking the link we sent to your inbox. Didn't get the email?
+            <%= link_to "Click Here", new_verify_email_path %>
+          </p>
+        <% end %>
+      </div>
+    <% when 'verified' %>
+      <div class="alert alert-success">
+        <p>Your Account Has Been Verified. You may now login.</p>
+      </div>
+    <% when 'created' %>
+      <div class="alert alert-success">
+        <p>Your Account Has Been Created. You may now login.</p>
+      </div>
+    <% when 'forgot' %>
+      <div class="alert alert-success">
+        <p>Password Reset Requested. If an account exists for the email provided, you will receive an email shortly.</p>
+      </div>
+    <% when 'reset' %>
+      <div class="alert alert-success">
+        <p>Password Reset Successfully. You can now login with your new password.</p>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= form_for '', url: login_path(next: params[:next]), html: {class: "login-form form-horizontal"} do |form| %>
+    <%= render 'stormpath/rails/shared/input', form: form, input_config: Stormpath::Rails.config.web.login.form.fields.login, input_name: :login, value: params[:login] %>
+    <%= render 'stormpath/rails/shared/input', form: form, input_config: Stormpath::Rails.config.web.login.form.fields.password, input_name: :password, value: nil %>
+
+    <div>
+      <%= button_tag "Log in", :class => "login btn btn-login btn-sp-green", :type => "submit" %>
+    </div>
+  <% end %>
+</div>

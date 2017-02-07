@@ -1,0 +1,27 @@
+<div class="container custom-container">
+  <div class="va-wrapper">
+    <div class="view login-view container">
+      <% if params[:sptoken] %>
+        <div class="row">
+          <div class="alert alert-warning">
+            <p>
+              This verification link is no longer valid. Please request a new link from the form below.
+            </p>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="box row">
+        <% if Stormpath::Rails.config.web.multi_tenancy.enabled && current_organization_name_key.nil? %>
+          <%= render partial: 'stormpath/rails/shared/select_organization', locals: { url: verify_email_path } %>
+        <% else %>
+          <%= render partial: 'stormpath/rails/verify_email/form' %>
+        <% end %>
+      </div>
+
+      <% if Stormpath::Rails.config.web.login.enabled %>
+        <%= link_to "Back to Log In", new_login_path, class: "forgot" %>
+      <% end %>
+    </div>
+  </div>
+</div>

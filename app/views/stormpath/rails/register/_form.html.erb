@@ -1,0 +1,19 @@
+<div class="col-sm-12">
+  <div class="header">
+    <span>Create Account</span>
+  </div>
+
+  <% if flash[:error] %>
+    <div class="alert alert-danger">
+      <p><%= flash[:error] %></p>
+    </div>
+  <% end %>
+
+  <%= form_for '', url: register_path, html: { class: "registration-form form-horizontal sp-form" } do |form| %>
+    <% Stormpath::Rails::RegistrationFormFields.enabled_field_names.each do |field| %>
+      <%= render 'stormpath/rails/shared/input', form: form, input_config: Stormpath::Rails.config.web.register.form.fields.send(field), input_name: field.to_s.camelize(:lower), value: params[field.to_s.camelize(:lower)] %>
+    <% end %>
+
+    <%= button_tag "Create Account", class: "btn btn-register btn-sp-green", type: "submit" %>
+  <% end %>
+</div>

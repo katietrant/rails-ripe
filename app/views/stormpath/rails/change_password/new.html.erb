@@ -1,0 +1,32 @@
+<div class="container custom-container">
+  <div class="va-wrapper">
+    <div class="view login-view container">
+      <div class="box row">
+        <div class="email-password-area col-xs-12 large col-sm-12">
+          <div class="header">
+            <span>Change Your Password</span>
+            <p>Enter your new account password below.  Once confirmed, you'll be logged into your account and your new password will be active.</p>
+          </div>
+
+          <% if flash[:error] %>
+            <div class="alert alert-danger bad-login">
+              <p><%= flash[:error] %></p>
+            </div>
+          <% end %>
+
+          <%= form_for :password, url: "/change?sptoken=#{params[:sptoken]}", html: { class: "login-form form-horizontal" } do |form| %>
+            <div class="form-group group-password">
+              <%= form.label :password, 'Password', class: "col-sm-4" %>
+              <div class="col-sm-8">
+                <%= form.password_field :repeated, placeholder: 'Password', class: "form-control", name: :password %>
+              </div>
+            </div>
+            <div>
+              <%= button_tag "Submit", :class => "login btn btn-login btn-sp-green", :type => "submit" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
