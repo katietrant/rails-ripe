@@ -1,0 +1,16 @@
+<div class="container custom-container">
+  <div class="va-wrapper">
+    <div class="view registration-view container">
+      <div class="box row">
+        <% if Stormpath::Rails.config.web.multi_tenancy.enabled && current_organization_name_key.nil? %>
+          <%= render partial: 'stormpath/rails/shared/select_organization', locals: { url: register_path } %>
+        <% else %>
+          <%= render partial: 'stormpath/rails/register/form' %>
+        <% end %>
+      </div>
+      <% if Stormpath::Rails.config.web.login.enabled %>
+        <%= link_to "Back to Log In", new_login_path, class: "to-login" %>
+      <% end %>
+    </div>
+  </div>
+</div>
