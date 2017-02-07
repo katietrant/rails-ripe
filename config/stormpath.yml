@@ -1,6 +1,6 @@
 stormpath:
   application:
-    href: null
+    href: https://api.stormpath.com/v1/applications/4Ld8RvHKMWYRiomFVFXkrc
     name: null
 
   web:
