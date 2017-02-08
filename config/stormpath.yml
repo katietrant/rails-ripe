@@ -121,11 +121,28 @@ stormpath:
             placeholder: "Confirm Password"
             required: true
             type: "password"
+          zip:
+            enabled: true
+            visible: true
+            label: "Zip Code"
+            placeholder: "Zip Code"
+            required: true
+            type: "text"
+          phone:
+            enabled: true
+            visible: true
+            label: "Cell Phone"
+            placeholder: "Cell Phone"
+            required: false
+            type: "text"
+
         fieldOrder:
           - "username"
           - "givenName"
           - "middleName"
           - "surname"
+          - "phone"
+          - "zip"
           - "email"
           - "password"
           - "confirmPassword"
